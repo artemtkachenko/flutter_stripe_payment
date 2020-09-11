@@ -320,9 +320,12 @@ void initializeTPSPaymentNetworksWithConditionalMappings() {
 -(void)canMakeApplePayPayments:(NSDictionary *)options
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject {
-    NSArray <NSString *> *paymentNetworksStrings =
-    options[@"networks"] ?: [StripeModule applePaySupportedPaymentNetworksStrings];
-
+    NSArray <NSString *> *paymentNetworksStrings = [StripeModule applePaySupportedPaymentNetworksStrings];
+    NSArray <NSString *> *candidatesNetwrokStrings = options[@"networks"];
+    if (candidatesNetwrokStrings.count > 0) {
+      paymentNetworksStrings = candidatesNetwrokStrings;
+    }
+  
     NSArray <PKPaymentNetwork> *networks = [self paymentNetworks:paymentNetworksStrings];
     resolve(@([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:networks]));
 }
