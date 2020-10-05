@@ -1510,8 +1510,24 @@ void initializeTPSPaymentNetworksWithConditionalMappings() {
 
 /// API: https://stripe.com/docs/api/cards/object#card_object-brand
 - (NSString *)cardBrandAsPresentableBrandString:(STPCardBrand)inputBrand {
-//    return STPStringFromCardBrand(inputBrand);
-  return @"tbd";
+  switch (inputBrand) {
+      case STPCardBrandAmex:
+          return @"American Express";
+      case STPCardBrandDinersClub:
+          return @"Diners Club";
+      case STPCardBrandDiscover:
+          return @"Discover";
+      case STPCardBrandJCB:
+          return @"JCB";
+      case STPCardBrandMasterCard:
+          return @"MasterCard";
+      case STPCardBrandUnionPay:
+          return @"UnionPay";
+      case STPCardBrandVisa:
+          return @"Visa";
+      case STPCardBrandUnknown:
+          return @"Unknown";
+  }
 }
 
 - (NSString *)cardFunding:(STPCardFundingType)inputFunding {
